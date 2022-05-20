@@ -1,0 +1,10 @@
+cloud:
+  hosts:
+    node0:
+      ansible_host: XXXXX
+      ansible_user: ubuntu
+      node_rank: 0
+    node1:
+      ansible_host: XXXXXX
+      ansible_user: ubuntu
+      node_rank: 1

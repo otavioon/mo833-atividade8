@@ -1,0 +1,52 @@
+# Playbook para implantação e execução da DCGAN
+# Você deve adicionar mais tasks a partir do local indicado, abaixo.
+# Lembre-se que a indentação é muito importante.
+# Para mais informações sobre YAML, veja: https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
+
+- name: "Play para configurar e executar a DCGAN."
+  hosts: cloud
+  vars:
+    efs_host:  "{{ lookup('env', 'EFS_HOST') }}"
+    efs_mount_point: "{{ lookup('env', 'EFS_MOUNT_POINT') }}"
+    cifar_data_dir: "{{ efs_mount_point }}/data/cifar10/"
+
+  tasks:
+  # Teste simples. A mensagem "Teste SSH OK!" deve ser impressa na tela
+  - name: "Task 1: Apenas testando o SSH"
+    debug:
+      msg: "Meu nome é {{ inventory_hostname }}. Meu endereço é {{ ansible_host }}. O meu usuário de login é {{ ansible_user }}."
+
+  # Task para criar o grupo docker
+  - name: "Task 2: Cria o grupo docker"
+    become: true
+    group:
+      name: docker
+      state: present
+
+  # Task utilizada para adicionar o usuário ubuntu ao grupo Docker
+  - name: "Task 3: Adicionar usuario ubuntu ao grupo docker"
+    become: true
+    user:
+      name: ubuntu
+      groups: docker
+      append: yes
+
+  # Reinicia a conexão SSH
+  - name: "Task 4: Reinicar a conexão ssh para a alterações de grupos tenham efeito"
+    ansible.builtin.meta:
+      reset_connection
+
+  ###############################################
+  #   Adicione suas tasks a partir daqui..      #
+  ###############################################
+
+
+
+  ###############################################
+  #   Fim das suas tasks..                      #
+  ###############################################
+
+  # Imprime uma mensagem de sucesso
+  - name: "Task N: Final"
+    debug:
+      msg: "Playbook executado com sucesso!"
