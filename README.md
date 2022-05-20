@@ -182,6 +182,8 @@ A submissão deve ser realizada até o dia 31/05/2021 às 13h59min, horário de 
 
 - Antes de instalar pacotes, lembre-se de atualizar a lista de pacotes (veja a opção `update_cache` do módulo `apt`).
 
-- A chave `become` com valor `True` (*e.g.* `become: true`) pode ser adicionada a uma *task* (ou *play*) para ela seja executada como super usuário (*e.g.* *root*). Isto é util para *tasks* que necessitam de permissões elevadas (como instalação de pacotes, por exemplo).
+- A chave `become` com valor `true` (*e.g.* `become: true`) pode ser adicionada a uma *task* (ou *play*) para ela seja executada como super usuário (*e.g.* *root*). Isto é util para *tasks* que necessitam de permissões elevadas (como instalação de pacotes, por exemplo).
+
+- A chave `run_once` com valor `true` (*e.g.* `run_once: true`) pode ser adicionada a uma *task* para ela seja executada apenas um único *host* qualquer.
 
 - Para longas tarefas (execução da aplicação ou construção da imagem Docker, por exemplo), o Ansible fornece as chaves [`pool`](https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html#asynchronous-playbook-tasks) e [`async`](https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html#asynchronous-playbook-tasks) para evitar desconexões SSH ao executar as tarefas. Valores como `pool: 30` e `async: 1200` podem ser razoáveis para as tarefas de execução daaplicação e criação da imagem Docker, caso necessite.
